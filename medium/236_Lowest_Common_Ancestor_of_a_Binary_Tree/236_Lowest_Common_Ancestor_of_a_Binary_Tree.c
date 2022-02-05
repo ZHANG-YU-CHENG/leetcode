@@ -30,22 +30,72 @@
 
 #include "binary_tree_utils.h"
 
+/*
+//v1
 struct TreeNode* anc = NULL;
 bool findAncestor(struct TreeNode* root, struct TreeNode* p, struct TreeNode* q){
+
+    //If reached the end of a branch, return False.
     if(root==NULL) return false;
+
+    //If the left branch returns True, this means p or q was found below.
     bool left = findAncestor(root->left, p, q);
+    
+    //If the right branch returns True, this means p or q was found below.
     bool right = findAncestor(root->right, p, q);
+
+    //If the current node itself is one of p or q, we would mark a variable mid as True
     bool mid = root==p || root==q;
+
+    //If at any point in the traversal, any two of the three flags left, right or mid become True, 
+    //this means we have found the lowest common ancestor for the nodes p and q
     if((left && right) || (mid && left) || (mid && right))
     {
         anc = root;
         return true;
     }
+
+    //Return True if either of the three bool values is True
     return left || right || mid;
 }
 
 struct TreeNode* lowestCommonAncestor(struct TreeNode* root, struct TreeNode* p, struct TreeNode* q) {
     anc = NULL;
     findAncestor(root, p, q);
+    return anc;    
+}
+*/
+
+
+//v1.1
+bool findAncestor(struct TreeNode* root, struct TreeNode* p, struct TreeNode* q, struct TreeNode** anc){
+
+    //If reached the end of a branch, return False.
+    if(root==NULL) return false;
+
+    //If the left branch returns True, this means p or q was found below.
+    bool left = findAncestor(root->left, p, q, anc);
+    
+    //If the right branch returns True, this means p or q was found below.
+    bool right = findAncestor(root->right, p, q, anc);
+
+    //If the current node itself is one of p or q, we would mark a variable mid as True
+    bool mid = root==p || root==q;
+
+    //If at any point in the traversal, any two of the three flags left, right or mid become True, 
+    //this means we have found the lowest common ancestor for the nodes p and q
+    if((left && right) || (mid && left) || (mid && right))
+    {
+        *anc = root;
+        return true;
+    }
+
+    //Return True if either of the three bool values is True
+    return left || right || mid;
+}
+
+struct TreeNode* lowestCommonAncestor(struct TreeNode* root, struct TreeNode* p, struct TreeNode* q) {
+    struct TreeNode* anc = NULL;
+    findAncestor(root, p, q, &anc);
     return anc;    
 }
