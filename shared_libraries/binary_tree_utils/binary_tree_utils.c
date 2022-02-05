@@ -88,3 +88,19 @@ struct TreeNode* arr2BT(char** arr, int arrlen)
     }
     return root;
 }
+
+//find unique node by val
+bool findUniqueNode(struct TreeNode* root, struct TreeNode** target, int val){
+    if(root==NULL) return false;
+
+    if(root->val==val)
+    {
+        *target = root;
+        return true;
+    }
+
+    bool left = findUniqueNode(root->left, target, val);
+    if(left) return true;
+    bool right = findUniqueNode(root->right, target, val);
+    return right;
+}
