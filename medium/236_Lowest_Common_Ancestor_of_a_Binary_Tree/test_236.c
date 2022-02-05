@@ -5,7 +5,6 @@ extern "C" {
 #include "binary_tree_utils.h"
 }
 
-extern bool findUniqueNode(struct TreeNode* root, struct TreeNode** target, int val);
 extern struct TreeNode* lowestCommonAncestor(struct TreeNode* root, struct TreeNode* p, struct TreeNode* q);
 
 TEST(lowestCommonAncestorTest, test1) {
@@ -13,7 +12,7 @@ TEST(lowestCommonAncestorTest, test1) {
     int arrlen = (int) (sizeof(arr)/sizeof(arr[0]));
     struct TreeNode* root = NULL;
     root = arr2BT(arr, arrlen);
-    
+
     struct TreeNode* p = NULL;
     findUniqueNode(root, &p, 5);
     struct TreeNode* q = NULL;
