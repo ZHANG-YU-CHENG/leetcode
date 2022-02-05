@@ -25,18 +25,56 @@
 #include "binary_tree_utils.h"
 #include <math.h>
 
-
+/*
+//v1
 int max;
 int find(struct TreeNode* root){
+    //If reached the end of a branch, return 0.
     if(root==NULL) return 0;
+
+    //The max value of left subtree, if the value less than 0, then set to 0
     int left = fmax(find(root->left), 0);
+
+    //The max value of right subtree, if the value less than 0, then set to 0
     int right = fmax(find(root->right), 0);
-    max = fmax(max, root->val + left + right); //update max
-    return root->val + fmax(left, right); //path can only include one side, left or right
+
+    //If current max value greater than max (ans), then update max (ans)
+    //max = current node value + left + right
+    max = fmax(max, root->val + left + right);
+
+    //The max value of subtree = current node value + the greater path (left or right)
+    return root->val + fmax(left, right);
 }
 
 int maxPathSum(struct TreeNode* root){
     max = -1001;
     find(root);
+    return max;
+}
+*/
+
+
+//v1.1
+int find(struct TreeNode* root, int* max){
+    //If reached the end of a branch, return 0.
+    if(root==NULL) return 0;
+
+    //The max value of left subtree, if the value less than 0, then set to 0
+    int left = fmax(find(root->left, max), 0);
+
+    //The max value of right subtree, if the value less than 0, then set to 0
+    int right = fmax(find(root->right, max), 0);
+
+    //If current max value greater than max (ans), then update max (ans)
+    //current max value = current node value + left + right
+    *max = fmax(*max, root->val + left + right);
+
+    //The max value of subtree = current node value + the greater path (left or right)
+    return root->val + fmax(left, right);
+}
+
+int maxPathSum(struct TreeNode* root){
+    int max = -1001;
+    find(root, &max);
     return max;
 }
