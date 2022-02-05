@@ -25,7 +25,11 @@
 
 #include "binary_tree_utils.h"
 #include <math.h>
+#include <stdbool.h>
 
+
+/*
+//v1
 int maxDepth(struct TreeNode* root){
     if(root==NULL) return 0;
     return 1+fmax(maxDepth(root->left), maxDepth(root->right));
@@ -37,3 +41,45 @@ bool isBalanced(struct TreeNode* root){
     if(diff==0 || diff==1 || diff==-1) return isBalanced(root->left) && isBalanced(root->right);
     else return false;
 }
+*/
+
+//v1.1
+int maxDepth(struct TreeNode* root){
+    if(root==NULL) return 0;
+    return 1+fmax(maxDepth(root->left), maxDepth(root->right));
+}
+
+bool isBalanced(struct TreeNode* root){
+    if(root == NULL) return true;
+    int diff = maxDepth(root->left) - maxDepth(root->right);
+    return (diff==0 || diff==1 || diff==-1) && isBalanced(root->left) && isBalanced(root->right);
+}
+
+/*
+//v2
+bool isBalanced_flag = true;
+int maxDepth(struct TreeNode* root){
+    if(root==NULL || !isBalanced_flag)
+    {
+        return 0;
+    }
+    int dL = maxDepth(root->left);
+    int dR = maxDepth(root->right);
+
+    if(abs(dL-dR)>1)
+    {
+        isBalanced_flag = false;
+        return 0;
+    }
+    else
+    {
+        return 1+fmax(maxDepth(root->left), maxDepth(root->right));
+    }
+}
+
+bool isBalanced(struct TreeNode* root){
+    isBalanced_flag = true;
+    maxDepth(root);
+    return isBalanced_flag;
+}
+*/
