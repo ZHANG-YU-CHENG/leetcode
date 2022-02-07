@@ -6,17 +6,25 @@ void queue_push(struct QueueNode** queue, struct TreeNode* val)
     struct QueueNode* newQueueNode = (struct QueueNode*) malloc(sizeof(struct QueueNode));
     newQueueNode->val = val;
     newQueueNode->next = NULL;
+
+    //first node
     if(*queue==NULL)
     {
         *queue = newQueueNode;
         return;
     }
+    
     struct QueueNode* current = *queue;
+    
+    //find the end of the queue
     while(current->next)
     {
         current = current->next;
     }
+
+    //append the new node in the end of the queue
     current->next = newQueueNode;
+
     return;
 }
 
@@ -24,7 +32,10 @@ struct TreeNode* queue_pop(struct QueueNode** queue)
 {
     struct TreeNode* pop_val = NULL;
     pop_val = (*queue)->val;
+
+    //set the next node be the head of the queue
     (*queue) = (*queue)->next;
+
     return pop_val;
 }
 

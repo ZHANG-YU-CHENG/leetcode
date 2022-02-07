@@ -35,7 +35,7 @@ extern "C" {
  */
 int** levelOrder(struct TreeNode* root, int* returnSize, int** returnColumnSizes){
     /*
-    // example:
+    // Example for return an 2d int array (int**) :
     int* col1 = (int*) malloc(sizeof(int));
     col1[0] = 3;
     int* col2 = (int*) malloc(sizeof(int)*2);
@@ -64,6 +64,8 @@ int** levelOrder(struct TreeNode* root, int* returnSize, int** returnColumnSizes
     int* tmpCol = NULL;
     int** levelOrderArr = (int**) malloc(sizeof(int*)*2000);
     *returnColumnSizes = (int*)malloc(sizeof(int)*2000);
+
+    //If tree do not have any node, return directly
     if(root==NULL)
     {
         *returnSize = 0;
@@ -72,8 +74,13 @@ int** levelOrder(struct TreeNode* root, int* returnSize, int** returnColumnSizes
     queue_push(&queue, current);
     while(current)
     {
+        //Allocate current queue size amount of memories for this col
         tmpCol = (int*) malloc(sizeof(int)*queueSize);
+        
+        //Col size of current level = current queue size (which means how many nodes in queue) 
         (*returnColumnSizes)[level] = queueSize;
+
+        //iterate over the queue
         for(int i=0; i<queueSize; ++i)
         {
             current = queue_pop(&queue);
@@ -81,6 +88,8 @@ int** levelOrder(struct TreeNode* root, int* returnSize, int** returnColumnSizes
 
             if(current->left)
             {
+                //the new nodes be pushed in this "for loop iteration" 
+                //will be iterated next time(next while loop iteration)
                 queue_push(&queue, current->left);
                 ++tmpQueueSize;
             }
@@ -92,6 +101,8 @@ int** levelOrder(struct TreeNode* root, int* returnSize, int** returnColumnSizes
         }
         levelOrderArr[level] = tmpCol;
         if(queue_is_empty(queue)) break;
+
+        //update queue size = how many times we push node in this "for loop iteration"
         queueSize = tmpQueueSize;
         tmpQueueSize = 0;
         ++level;
