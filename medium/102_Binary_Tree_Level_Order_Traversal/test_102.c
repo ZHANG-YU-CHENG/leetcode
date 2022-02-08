@@ -7,7 +7,7 @@ extern "C" {
 
 extern int** levelOrder(struct TreeNode* root, int* returnSize, int** returnColumnSizes);
 
-TEST(lowestCommonAncestorTest, test1) {
+TEST(levelOrderTest, test1) {
     char* arr[] = {(char*)"3",(char*)"9",(char*)"20",(char*)"x",(char*)"x",(char*)"15",(char*)"7"};
     int arrlen = (int) (sizeof(arr)/sizeof(arr[0]));
     struct TreeNode* root = NULL;
@@ -52,7 +52,7 @@ TEST(lowestCommonAncestorTest, test1) {
     free(returnColumnSizes);
 }
 
-TEST(lowestCommonAncestorTest, test2) {
+TEST(levelOrderTest, test2) {
     char* arr[] = {(char*)"1"};
     int arrlen = (int) (sizeof(arr)/sizeof(arr[0]));
     struct TreeNode* root = NULL;
@@ -85,7 +85,7 @@ TEST(lowestCommonAncestorTest, test2) {
     free(returnColumnSizes);
 }
 
-TEST(lowestCommonAncestorTest, test3) {
+TEST(levelOrderTest, test3) {
     char* arr[] = {};
     int arrlen = (int) (sizeof(arr)/sizeof(arr[0]));
     struct TreeNode* root = NULL;
