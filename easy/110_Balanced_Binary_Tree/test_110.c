@@ -13,6 +13,7 @@ TEST(isBalancedTest, test1) {
     struct TreeNode* root = NULL;
     root = arr2BT(arr, arrlen);
     EXPECT_TRUE(isBalanced(root));
+    deleteTree(&root);
 }
 
 TEST(isBalancedTest, test2) {
@@ -21,6 +22,7 @@ TEST(isBalancedTest, test2) {
     struct TreeNode* root = NULL;
     root = arr2BT(arr, arrlen);
     EXPECT_FALSE(isBalanced(root));
+    deleteTree(&root);
 }
 
 TEST(isBalancedTest, test3) {
@@ -29,6 +31,7 @@ TEST(isBalancedTest, test3) {
     struct TreeNode* root = NULL;
     root = arr2BT(arr, arrlen);
     EXPECT_TRUE(isBalanced(root));
+    deleteTree(&root);
 }
 
 TEST(isBalancedTest, test4) {
@@ -37,6 +40,7 @@ TEST(isBalancedTest, test4) {
     struct TreeNode* root = NULL;
     root = arr2BT(arr, arrlen);
     EXPECT_FALSE(isBalanced(root));
+    deleteTree(&root);
 }
 
 int main(int argc, char **argv) {

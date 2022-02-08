@@ -23,5 +23,6 @@ bool queue_is_empty(struct QueueNode* queue);
 void queue_print(struct QueueNode* queue);
 struct TreeNode* arr2BT(char** arr, int arrlen);
 bool findUniqueNode(struct TreeNode* root, struct TreeNode** target, int val);
+void deleteTree(struct TreeNode** root);
 
 #endif

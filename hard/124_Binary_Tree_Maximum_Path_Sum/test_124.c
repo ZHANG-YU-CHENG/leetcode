@@ -14,6 +14,7 @@ TEST(maxPathSumTest, test1) {
     root = arr2BT(arr, arrlen);
     int sum = maxPathSum(root);
     EXPECT_EQ(6, sum);
+    deleteTree(&root);
 }
 
 TEST(maxPathSumTest, test2) {
@@ -23,6 +24,7 @@ TEST(maxPathSumTest, test2) {
     root = arr2BT(arr, arrlen);
     int sum = maxPathSum(root);
     EXPECT_EQ(42, sum);
+    deleteTree(&root);
 }
 
 int main(int argc, char **argv) {

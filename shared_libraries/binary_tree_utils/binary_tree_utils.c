@@ -101,7 +101,8 @@ struct TreeNode* arr2BT(char** arr, int arrlen)
 }
 
 //find unique node by val
-bool findUniqueNode(struct TreeNode* root, struct TreeNode** target, int val){
+bool findUniqueNode(struct TreeNode* root, struct TreeNode** target, int val)
+{
     if(root==NULL) return false;
 
     if(root->val==val)
@@ -114,4 +115,25 @@ bool findUniqueNode(struct TreeNode* root, struct TreeNode** target, int val){
     if(left) return true;
     bool right = findUniqueNode(root->right, target, val);
     return right;
+}
+
+//helper function for deleteTree only
+static void _deleteTree(struct TreeNode* root)
+{
+    if(root==NULL) return;
+
+    //recursive delete left and right subtree
+    _deleteTree(root->left);
+    _deleteTree(root->right);
+
+    //delete the current node
+    //printf("Deleting node : %d\n", root->val);
+    free(root);
+}
+
+//delete tree
+void deleteTree(struct TreeNode** root)
+{
+    _deleteTree(*root);
+    *root = NULL;
 }

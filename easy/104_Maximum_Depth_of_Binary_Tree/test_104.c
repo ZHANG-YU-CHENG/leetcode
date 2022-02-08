@@ -16,6 +16,7 @@ TEST(maxDepthTest, test1) {
     int max_depth = 0;
     max_depth =  maxDepth(root);
     EXPECT_EQ(3, max_depth);
+    deleteTree(&root);
 }
 
 TEST(maxDepthTest, test2) {
@@ -26,6 +27,7 @@ TEST(maxDepthTest, test2) {
     int max_depth = 0;
     max_depth =  maxDepth(root);
     EXPECT_EQ(2, max_depth);
+    deleteTree(&root);
 }
 
 TEST(maxDepthTest, test3) {
@@ -36,6 +38,7 @@ TEST(maxDepthTest, test3) {
     int max_depth = 0;
     max_depth =  maxDepth(root);
     EXPECT_EQ(0, max_depth);
+    deleteTree(&root);
 }
 
 TEST(maxDepthTest, test4) {
@@ -46,6 +49,7 @@ TEST(maxDepthTest, test4) {
     int max_depth = 0;
     max_depth =  maxDepth(root);
     EXPECT_EQ(1, max_depth);
+    deleteTree(&root);
 }
 
 

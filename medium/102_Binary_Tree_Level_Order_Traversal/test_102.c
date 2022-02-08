@@ -59,6 +59,7 @@ TEST(levelOrderTest, test1) {
     free(levelOrderArr[2]);
     free(levelOrderArr);
     free(returnColumnSizes);
+    deleteTree(&root);
 }
 
 TEST(levelOrderTest, test2) {
@@ -98,6 +99,7 @@ TEST(levelOrderTest, test2) {
     free(levelOrderArr[0]);
     free(levelOrderArr);
     free(returnColumnSizes);
+    deleteTree(&root);
 }
 
 TEST(levelOrderTest, test3) {
@@ -114,6 +116,7 @@ TEST(levelOrderTest, test3) {
     EXPECT_EQ(0, returnSize);
     EXPECT_EQ(NULL, returnColumnSizes);
     EXPECT_EQ(NULL, levelOrderArr);
+    deleteTree(&root);
 }
 
 

@@ -22,6 +22,7 @@ TEST(lowestCommonAncestorTest, test1) {
     anc = lowestCommonAncestor(root, p, q);
     int anc_val = anc->val;
     EXPECT_EQ(3, anc_val);
+    deleteTree(&root);
 }
 
 TEST(lowestCommonAncestorTest, test2) {
@@ -39,6 +40,7 @@ TEST(lowestCommonAncestorTest, test2) {
     anc = lowestCommonAncestor(root, p, q);
     int anc_val = anc->val;
     EXPECT_EQ(5, anc_val);
+    deleteTree(&root);
 }
 
 TEST(lowestCommonAncestorTest, test3) {
@@ -56,6 +58,7 @@ TEST(lowestCommonAncestorTest, test3) {
     anc = lowestCommonAncestor(root, p, q);
     int anc_val = anc->val;
     EXPECT_EQ(1, anc_val);
+    deleteTree(&root);
 }
 
 int main(int argc, char **argv) {
