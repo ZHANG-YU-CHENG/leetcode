@@ -34,27 +34,13 @@ extern "C" {
  * Note: Both returned array and *columnSizes array must be malloced, assume caller calls free().
  */
 int** levelOrder(struct TreeNode* root, int* returnSize, int** returnColumnSizes){
-    /*
-    // Example for return an 2d int array (int**) :
-    int* col1 = (int*) malloc(sizeof(int));
-    col1[0] = 3;
-    int* col2 = (int*) malloc(sizeof(int)*2);
-    col2[0] = 9;
-    col2[1] = 20;
-    int* col3 = (int*) malloc(sizeof(int)*2);
-    col3[0] = 15;
-    col3[1] = 7;
-    int** levelOrderArr = (int**) malloc(sizeof(int*)*3);
-    levelOrderArr[0] = col1;
-    levelOrderArr[1] = col2;
-    levelOrderArr[2] = col3;
-
-    *returnSize = 3;
-    *returnColumnSizes = (int*)malloc(sizeof(int)*3);
-    (*returnColumnSizes)[0] = 1;
-    (*returnColumnSizes)[1] = 2;
-    (*returnColumnSizes)[2] = 2;
-    */
+    //If tree do not have any node, return directly
+    if(root==NULL)
+    {
+        *returnSize = 0;
+        *returnColumnSizes = NULL;
+        return NULL;
+    }
 
     struct QueueNode* queue = NULL;
     struct TreeNode* current = root;
@@ -65,12 +51,6 @@ int** levelOrder(struct TreeNode* root, int* returnSize, int** returnColumnSizes
     int** levelOrderArr = (int**) malloc(sizeof(int*)*2000);
     *returnColumnSizes = (int*)malloc(sizeof(int)*2000);
 
-    //If tree do not have any node, return directly
-    if(root==NULL)
-    {
-        *returnSize = 0;
-        return NULL;
-    }
     queue_push(&queue, current);
     while(current)
     {
