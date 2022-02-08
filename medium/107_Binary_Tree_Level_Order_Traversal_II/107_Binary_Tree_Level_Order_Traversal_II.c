@@ -40,6 +40,7 @@ int** levelOrder(struct TreeNode* root, int* returnSize, int** returnColumnSizes
     if(root==NULL)
     {
         *returnSize = 0;
+        *returnColumnSizes = NULL;
         return NULL;
     }
     queue_push(&queue, current);
@@ -93,6 +94,7 @@ int** levelOrderBottom(struct TreeNode* root, int* returnSize, int** returnColum
     if(root==NULL)
     {
         *returnSize = 0;
+        *returnColumnSizes = NULL;
         return NULL;
     }
 

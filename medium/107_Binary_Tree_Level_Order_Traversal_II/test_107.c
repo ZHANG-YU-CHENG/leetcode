@@ -30,10 +30,18 @@ TEST(levelOrderBottomTest, test1) {
     ansArr[0] = col3;
     ansArr[1] = col2;
     ansArr[2] = col1;
+    int* ansColArr = (int*) malloc(sizeof(int)*3);
+    ansColArr[0] = 2;
+    ansColArr[1] = 2;
+    ansColArr[2] = 1;
+
+    EXPECT_EQ(3, returnSize);
 
     //iterate over each row
     for(int row=0; row<returnSize; ++row)
     {
+        EXPECT_EQ(ansColArr[row], returnColumnSizes[row]);
+
     	//iterate over each col
     	for(int col=0; col<returnColumnSizes[row]; ++col)
     	{
@@ -67,10 +75,16 @@ TEST(levelOrderBottomTest, test2) {
     col1[0] = 1;
     int** ansArr = (int**) malloc(sizeof(int*));
     ansArr[0] = col1;
+    int* ansColArr = (int*) malloc(sizeof(int)*1);
+    ansColArr[0] = 1;
+
+    EXPECT_EQ(1, returnSize);
 
     //iterate over each row
     for(int row=0; row<returnSize; ++row)
     {
+        EXPECT_EQ(ansColArr[row], returnColumnSizes[row]);
+
     	//iterate over each col
     	for(int col=0; col<returnColumnSizes[row]; ++col)
     	{
@@ -96,6 +110,8 @@ TEST(levelOrderBottomTest, test3) {
     int** levelOrderBottomArr = NULL;
     levelOrderBottomArr = levelOrderBottom(root, &returnSize, &returnColumnSizes);
 
+    EXPECT_EQ(0, returnSize);
+    EXPECT_EQ(NULL, returnColumnSizes);
     EXPECT_EQ(NULL, levelOrderBottomArr);
 }
 
