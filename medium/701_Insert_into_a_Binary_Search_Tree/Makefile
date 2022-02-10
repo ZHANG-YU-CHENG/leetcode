@@ -1,0 +1,17 @@
+CC:=g++ #for unit test (gcc to g++)
+INC_DIR:=../../includes
+CFLAGS:=-I$(INC_DIR)
+LIB_DIR:=../../shared_libraries/binary_tree_utils
+LDFLAGS:=-L$(LIB_DIR) -Wl,-rpath=$(LIB_DIR) -Wall -lbinary_tree_utils
+LDFLAGS+=-std=c++11 -lgtest -lpthread #for unit test
+OBJS:=701_Insert_into_a_Binary_Search_Tree.o test_701.o
+EXE:=test_701
+
+all: $(OBJS)
+	$(CC) -o $(EXE) $^ $(LDFLAGS)
+
+%.o: %.c
+	$(CC) -c $< $(CFLAGS)
+
+clean:
+	rm -rf $(OBJS) $(EXE)
