@@ -34,5 +34,7 @@ bool compareList(struct ListNode* list1, struct ListNode* list2)
         list1 = list1->next;
         list2 = list2->next;
     }
+    //If list1 or list2 still have node, mean list1 and list2 have different length
+    if(list1 || list2) return false;
     return true;
 }
