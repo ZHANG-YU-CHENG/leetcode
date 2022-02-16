@@ -38,3 +38,12 @@ bool compareList(struct ListNode* list1, struct ListNode* list2)
     if(list1 || list2) return false;
     return true;
 }
+
+struct ListNode* pop(struct ListNode** list)
+{
+    if(list==NULL) return *list;
+    struct ListNode* head = *list;
+    (*list) = (*list)->next;
+    head->next = NULL;
+    return head;
+}

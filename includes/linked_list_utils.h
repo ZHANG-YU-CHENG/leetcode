@@ -13,5 +13,6 @@ struct ListNode{
 void printList(struct ListNode* head);
 struct ListNode* arr2List(int* arr, int len);
 bool compareList(struct ListNode* list1, struct ListNode* list2);
+struct ListNode* pop(struct ListNode** list);
 
 #endif
