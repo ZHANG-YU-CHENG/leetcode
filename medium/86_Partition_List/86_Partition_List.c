@@ -27,8 +27,8 @@ extern "C" {
 struct ListNode* partition(struct ListNode* head, int x){
     //deal with 1. empty list
     //          2. one node list
-    //          3. x is max or min of the list
-    if(head==NULL || head->next==NULL || x>=100 || x<=-100) return head;
+    //          3. x is greater than max or less than min of the list
+    if(head==NULL || head->next==NULL || x>100 || x<-100) return head;
 
     //dummy left and right
     //left list for the nodes which are less than x
