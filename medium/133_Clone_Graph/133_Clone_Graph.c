@@ -75,6 +75,7 @@ typedef struct queueList{
 }QueueList;
 
 void printTable(QueueList* table);
+void freeTable(QueueList* table);
 
 QueueList* createQueue(void){
     QueueList* queue = (QueueList*)malloc(sizeof(QueueList));
@@ -180,16 +181,32 @@ struct Node *cloneGraph(struct Node *s) {
     QueueList* table = createQueue();
 
     cloneGraph_r(s, table);
-    printTable(table);
 
-    return table->front->newAddr;
+    struct Node* newS1 = table->front->newAddr;
+
+    freeTable(table);
+
+    return newS1;
+}
+
+//free table
+void freeTable(QueueList* table)
+{
+    QueueNode* cur = table->front;
+    QueueNode* tmp;
+    while(cur)
+    {
+        tmp = cur;
+        cur = cur->next;
+        free(tmp);
+        tmp = NULL;
+    }
 }
 
 
 //for debug
 void printTable(QueueList* table)
 {
-    
     struct Node* s;
     QueueNode* cur = table->front;
     puts("==============");
