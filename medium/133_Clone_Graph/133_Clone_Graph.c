@@ -151,43 +151,44 @@ struct Node* getNewAddr(struct Node* oldAddr, QueueList* table)
     return table->back->newAddr;
 }
 
-void cloneGraph_r(struct Node* s, QueueList* table) {
-    //If the newNode has already been set
-    if(isReady(s, table)) return;
+/*** v1 recursive method ***/
+// void cloneGraph_r(struct Node* s, QueueList* table) {
+//     //If the newNode has already been set
+//     if(isReady(s, table)) return;
 
-    struct Node* newNode = getNewAddr(s, table);
-    newNode->val = s->val;
-    newNode->numNeighbors = s->numNeighbors;
-    newNode->neighbors = (struct Node**)malloc(sizeof(struct Node)*newNode->numNeighbors);
-    for(int i=0; i<newNode->numNeighbors; ++i)
-    {
-        struct Node* newNeighbor = getNewAddr(s->neighbors[i], table);
-        newNode->neighbors[i] = newNeighbor;
-    }
-    //set to ready
-    setReady(s, table);
+//     struct Node* newNode = getNewAddr(s, table);
+//     newNode->val = s->val;
+//     newNode->numNeighbors = s->numNeighbors;
+//     newNode->neighbors = (struct Node**)malloc(sizeof(struct Node)*newNode->numNeighbors);
+//     for(int i=0; i<newNode->numNeighbors; ++i)
+//     {
+//         struct Node* newNeighbor = getNewAddr(s->neighbors[i], table);
+//         newNode->neighbors[i] = newNeighbor;
+//     }
+//     //set to ready
+//     setReady(s, table);
 
-    //recursively check neighbors
-    for(int i=0; i<newNode->numNeighbors; ++i)
-    {
-        cloneGraph_r(s->neighbors[i], table);
-    }
-}
+//     //recursively check neighbors
+//     for(int i=0; i<newNode->numNeighbors; ++i)
+//     {
+//         cloneGraph_r(s->neighbors[i], table);
+//     }
+// }
 
-struct Node *cloneGraph(struct Node *s) {
-    if(s==NULL) return s;
+// struct Node *cloneGraph(struct Node *s) {
+//     if(s==NULL) return s;
 
-    //mapping table : [oldAddr , newAddr]
-    QueueList* table = createQueue();
+//     //mapping table : [oldAddr , newAddr]
+//     QueueList* table = createQueue();
 
-    cloneGraph_r(s, table);
+//     cloneGraph_r(s, table);
 
-    struct Node* newS1 = table->front->newAddr;
+//     struct Node* newS1 = table->front->newAddr;
 
-    freeTable(table);
+//     freeTable(table);
 
-    return newS1;
-}
+//     return newS1;
+// }
 
 //free table
 void freeTable(QueueList* table)
@@ -228,3 +229,104 @@ void printTable(QueueList* table)
     }
     puts("==============");
 }
+
+
+/*** v2 stack method ***/
+
+typedef struct stackNode{
+    struct Node* val;
+    stackNode* next;
+}StackNode;
+
+typedef struct stackList{
+    stackNode* top;
+}StackList;
+
+StackList* createStack(void){
+    StackList* stack = (StackList*)malloc(sizeof(StackList));
+    stack->top = NULL;
+    return stack;
+}
+
+bool isStackEmpty(StackList* stack){
+    return (stack->top==NULL);
+}
+
+struct Node* getStackTop(StackList* stack){
+    if(isStackEmpty(stack))
+    {
+        // puts("stack is empty");
+        return NULL;
+    }
+    return stack->top->val;
+}
+
+void stackPush(StackList* stack, struct Node* val){
+    StackNode* newNode = (StackNode*)malloc(sizeof(StackNode));
+    newNode->val = val;
+    
+    if(isStackEmpty(stack))
+        newNode->next = NULL;
+    else
+        newNode->next = stack->top;
+    stack->top = newNode;
+}
+
+void stackPop(StackList* stack){
+    if(isStackEmpty(stack))
+    {
+        // puts("stack is empty");
+        return;
+    }
+    StackNode* tmp = stack->top;
+    stack->top = stack->top->next;
+    free(tmp);
+}
+
+
+void cloneGraph_r(struct Node* s, QueueList* table) {
+    //If the newNode has already been set
+    if(isReady(s, table)) return;
+
+    struct Node* newNode = getNewAddr(s, table);
+    newNode->val = s->val;
+    newNode->numNeighbors = s->numNeighbors;
+    newNode->neighbors = (struct Node**)malloc(sizeof(struct Node)*newNode->numNeighbors);
+    for(int i=0; i<newNode->numNeighbors; ++i)
+    {
+        struct Node* newNeighbor = getNewAddr(s->neighbors[i], table);
+        newNode->neighbors[i] = newNeighbor;
+    }
+    //set to ready
+    setReady(s, table);
+}
+
+struct Node *cloneGraph(struct Node *s) {
+    if(s==NULL) return s;
+
+    //mapping table : [oldAddr , newAddr]
+    QueueList* table = createQueue();
+
+    StackList* stack = createStack();
+    Node* tmp;
+    stackPush(stack, s);
+    while(!isStackEmpty(stack))
+    {
+        tmp = getStackTop(stack);
+        stackPop(stack);
+        cloneGraph_r(tmp, table);
+        for(int i=0; i<tmp->numNeighbors; ++i)
+        {
+            if(!isReady(tmp->neighbors[i], table))
+                stackPush(stack, tmp->neighbors[i]);
+        }        
+    }
+
+    struct Node* newS1 = table->front->newAddr;
+
+    freeTable(table);
+
+    return newS1;
+}
+
+
