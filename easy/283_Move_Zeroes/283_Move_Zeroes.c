@@ -58,7 +58,7 @@ void moveZeroes(int* nums, int numsSize){
 }
 */
 
-
+/*
 void moveZeroes(int* nums, int numsSize){
     for(int lastNonZeroFoundAt=0, cur=0; cur<numsSize; ++cur)
     {
@@ -69,5 +69,50 @@ void moveZeroes(int* nums, int numsSize){
             nums[cur] = t;
             ++lastNonZeroFoundAt;
         }
+    }
+}
+*/
+
+
+int findNextZero(int* nums, int numsSize, int start)
+{
+    for(int i=start; i<numsSize; ++i)
+    {
+        if(nums[i]==0) return i;
+    }
+    return -1;
+}
+
+int findNextNonZero(int* nums, int numsSize, int start)
+{
+    for(int i=start; i<numsSize; ++i)
+    {
+        if(nums[i]!=0) return i;
+    }
+    return -1;
+}
+
+void swap(int* nums, int a, int b)
+{
+    int t = nums[a];
+    nums[a] = nums[b];
+    nums[b] = t;
+}
+
+void moveZeroes(int* nums, int numsSize){
+
+    int zeroPtr = findNextZero(nums, numsSize, 0);
+    if(zeroPtr==-1) return;
+    int cur = findNextNonZero(nums, numsSize, zeroPtr);
+    if(cur==-1) return;
+
+    while(1)
+    {
+        swap(nums, zeroPtr, cur);
+
+        zeroPtr = findNextZero(nums, numsSize, zeroPtr+1);
+        if(zeroPtr==-1) break;
+        cur = findNextNonZero(nums, numsSize, zeroPtr);
+        if(cur==-1) break;
     }
 }
