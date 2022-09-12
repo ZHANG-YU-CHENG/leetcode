@@ -16,12 +16,13 @@ TEST(mergeTreesTest, test1) {
     int arr2len = (int) (sizeof(arr2)/sizeof(arr2[0]));
     struct TreeNode* root2 = NULL;
     root2 = arr2BT(arr2, arr2len);
-
-    /* TO DO : compare two binary trees */
     struct TreeNode* ans = mergeTrees(root1, root2);
-    if(ans) puts("ok");
-    int tmp=1;
-    EXPECT_EQ(tmp, 1);
+
+    char* arr3[] = {(char*)"3",(char*)"4",(char*)"5",(char*)"5",(char*)"4",(char*)"x",(char*)"7"};
+    int arr3len = (int) (sizeof(arr3)/sizeof(arr3[0]));
+    struct TreeNode* expect = NULL;
+    expect = arr2BT(arr3, arr3len);
+    EXPECT_TRUE(compareBT(ans, expect));
 }
 
 TEST(mergeTreesTest, test2) {
@@ -33,12 +34,13 @@ TEST(mergeTreesTest, test2) {
     int arr2len = (int) (sizeof(arr2)/sizeof(arr2[0]));
     struct TreeNode* root2 = NULL;
     root2 = arr2BT(arr2, arr2len);
-
-    /* TO DO : compare two binary trees */
     struct TreeNode* ans = mergeTrees(root1, root2);
-    if(ans) puts("ok");
-    int tmp=1;
-    EXPECT_EQ(tmp, 1);
+
+    char* arr3[] = {(char*)"2",(char*)"2"};
+    int arr3len = (int) (sizeof(arr3)/sizeof(arr3[0]));
+    struct TreeNode* expect = NULL;
+    expect = arr2BT(arr3, arr3len);
+    EXPECT_TRUE(compareBT(ans, expect));
 }
 
 int main(int argc, char **argv) {
