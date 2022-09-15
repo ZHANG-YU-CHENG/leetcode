@@ -24,5 +24,6 @@ void queue_print(struct QueueNode* queue);
 struct TreeNode* arr2BT(char** arr, int arrlen);
 bool findUniqueNode(struct TreeNode* root, struct TreeNode** target, int val);
 void deleteTree(struct TreeNode** root);
+bool compareBT(struct TreeNode* root1, struct TreeNode* root2);
 
 #endif
