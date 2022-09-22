@@ -33,6 +33,7 @@
     struct TreeNode *right;
  };
 
+/*
 void __sumRootToLeaf(struct TreeNode* root, int currNum, int* sum){
     if(root)
     {
@@ -45,41 +46,61 @@ void __sumRootToLeaf(struct TreeNode* root, int currNum, int* sum){
 }
 
 int sumRootToLeaf(struct TreeNode* root){
+    morrisPreorderTraversal(root);
+    puts("");
     int currNum = 0;
     int sum = 0;
     __sumRootToLeaf(root, currNum, &sum);
     return sum;
 }
+*/
 
-
-
-/* TODO, use morris preorder traversal to solve this problem */
-void morrisPreorderTraversal(struct TreeNode* root)
+// morris preorder traversal
+int sumRootToLeaf(struct TreeNode* root)
 {
     struct TreeNode* predecessor;
+    int currNum = 0;
+    int sum = 0;
+    int steps = 0;
     while(root)
     {
         if(root->left)
         {
             predecessor = root->left;
+            steps = 1;
             while(predecessor->right && predecessor->right!=root)
-                predecessor = predecessor->right;
-            if(predecessor->right==NULL)
             {
-                printf("%d ", root->val);
-                predecessor->right = root;
+                ++steps;
+                predecessor = predecessor->right;
+            }
+
+            if(predecessor->right==NULL) /* if the link is NOT exist */
+            {
+                predecessor->right = root; /* add the link */
+                currNum = (currNum << 1) | root->val;
                 root = root->left;
             }
             else
             {
-                predecessor->right = NULL;
+                if(predecessor->left==NULL)  /* this node is a leaf node */ 
+                    sum += currNum;
+                for(int i=0; i<steps; ++i)
+                    currNum >>= 1;
+                predecessor->right = NULL; /* break the link */
                 root = root->right;
             }
         }
         else
         {
-            printf("%d ", root->val);
+            currNum = (currNum << 1) | root->val;
+            if(root->right==NULL) /* this node is a leaf node */
+                sum += currNum;
             root = root->right;
         }
     }
+    return sum;
 }
+
+
+
+
