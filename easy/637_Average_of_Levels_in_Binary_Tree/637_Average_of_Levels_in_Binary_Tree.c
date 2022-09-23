@@ -34,6 +34,7 @@
  * Note: The returned array must be malloced, assume caller calls free().
  */
 
+/*
 // ==================queue utils=================== 
 struct queueNode{
     struct TreeNode* val;
@@ -166,7 +167,39 @@ double* averageOfLevels(struct TreeNode* root, int* returnSize){
     }
     return out;
 }
+*/
 
+int getBinaryTreeDepth(struct TreeNode* root)
+{
+    if(!root)
+        return 0;
+    int leftSum = getBinaryTreeDepth(root->left);
+    int rightSum = getBinaryTreeDepth(root->right);
+    int sum = (leftSum > rightSum) ? leftSum : rightSum;
+    return sum+1;
+}
 
+void __averageOfLevels(struct TreeNode* root, int level, int* level_size, double* level_sum)
+{
+    if(root)
+    {
+        ++level_size[level];
+        level_sum[level] += root->val;
+        __averageOfLevels(root->left, level+1, level_size, level_sum);
+        __averageOfLevels(root->right, level+1, level_size, level_sum);
+    }
+}
 
+double* averageOfLevels(struct TreeNode* root, int* returnSize){
+    int depth = getBinaryTreeDepth(root);
+    *returnSize = depth;
+    int* level_size = (int*)calloc(depth, sizeof(int));
+    double* level_sum = (double*)calloc(depth, sizeof(double));
+    __averageOfLevels(root, 0, level_size, level_sum);
+
+    double* out = (double*)malloc(sizeof(double)*depth);
+    for(int i=0; i<depth; ++i)
+        out[i] = level_sum[i]/level_size[i];
+    return out;
+}
 
