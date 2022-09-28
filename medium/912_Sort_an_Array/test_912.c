@@ -26,6 +26,18 @@ TEST(sortArrayTest, test2) {
         EXPECT_EQ(ans[i], expect[i]);
 }
 
+TEST(sortArrayTest, test3) {
+    int nums[] = {2,2,5,1,2,2,1,2,0,2,2,6,6,2,2,2,2,0,2,2,2,2};
+    int numsSize = sizeof(nums)/sizeof(nums[0]);
+    int returnSize;
+    int* ans = sortArray(nums, numsSize, &returnSize);
+    EXPECT_EQ(returnSize, numsSize);
+
+    int expect[] = {0,0,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,5,6,6};
+    for(int i=0; i<returnSize; ++i)
+        EXPECT_EQ(ans[i], expect[i]);
+}
+
 int main(int argc, char **argv) {
     printf("Running main() from %s\n", __FILE__);
     testing::InitGoogleTest(&argc, argv);
