@@ -80,3 +80,5 @@ int countTriplets(int* arr, int arrSize){
     }
     return count;
 }
+
+/* TODO : there is O(N) solution, need to figure out */
