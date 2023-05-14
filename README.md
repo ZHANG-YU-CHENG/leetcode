@@ -1,2 +1,2 @@
 # leetcode
-leetcode practices using C language
+leetcode practices using C and C++ language
